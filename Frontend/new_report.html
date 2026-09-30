@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>New Test Report</h1>
+
+        <p>
+            Enter NAWI instrument and laboratory information.
+        </p>
+
+    </div>
+
+</div>
+
+
+<form method="POST"
+      class="form-card">
+
+
+    <div class="form-section">
+
+        <h2>Report Information</h2>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Report Number *</label>
+
+                <input type="text"
+                       name="report_no"
+                       placeholder="NAWI-2026-001"
+                       required>
+            </div>
+
+
+            <div>
+                <label>Test Date *</label>
+
+                <input type="date"
+                       name="test_date"
+                       required>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <h2>Instrument Details</h2>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Manufacturer *</label>
+
+                <input type="text"
+                       name="manufacturer"
+                       required>
+            </div>
+
+
+            <div>
+                <label>Model</label>
+
+                <input type="text"
+                       name="model">
+            </div>
+
+
+            <div>
+                <label>Serial Number</label>
+
+                <input type="text"
+                       name="serial_no">
+            </div>
+
+
+            <div>
+                <label>Instrument Type</label>
+
+                <select name="instrument_type">
+
+                    <option value="">
+                        Select Instrument
+                    </option>
+
+                    <option>
+                        Platform Weighing Instrument
+                    </option>
+
+                    <option>
+                        Counter Scale
+                    </option>
+
+                    <option>
+                        Bench Scale
+                    </option>
+
+                    <option>
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+                <label>Maximum Capacity (Max)</label>
+
+                <input type="number"
+                       step="any"
+                       name="max_capacity">
+            </div>
+
+
+            <div>
+                <label>Scale Interval (e)</label>
+
+                <input type="number"
+                       step="any"
+                       name="scale_interval">
+            </div>
+
+
+            <div>
+                <label>Accuracy Class</label>
+
+                <select name="accuracy_class">
+
+                    <option value="">
+                        Select Class
+                    </option>
+
+                    <option>Class I</option>
+                    <option>Class II</option>
+                    <option>Class III</option>
+                    <option>Class IV</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <h2>Laboratory Information</h2>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Laboratory Name</label>
+
+                <input type="text"
+                       name="laboratory">
+            </div>
+
+
+            <div>
+                <label>Location</label>
+
+                <input type="text"
+                       name="location">
+            </div>
+
+
+            <div>
+                <label>Temperature (°C)</label>
+
+                <input type="number"
+                       step="any"
+                       name="temperature">
+            </div>
+
+
+            <div>
+                <label>Relative Humidity (%)</label>
+
+                <input type="number"
+                       step="any"
+                       name="humidity">
+            </div>
+
+
+            <div>
+                <label>Inspector / Technician</label>
+
+                <input type="text"
+                       name="inspector">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+        <a href="{{ url_for('dashboard') }}"
+           class="secondary-btn">
+            Cancel
+        </a>
+
+        <button type="submit"
+                class="primary-btn">
+            Continue to Tests →
+        </button>
+
+    </div>
+
+</form>
+
+{% endblock %}
