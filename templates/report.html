@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="report-actions">
+
+    <a href="{{ url_for('dashboard') }}"
+       class="secondary-btn">
+        ← Dashboard
+    </a>
+
+    <button onclick="window.print()"
+            class="primary-btn">
+        🖨 Print / Save PDF
+    </button>
+
+</div>
+
+
+<div class="official-report">
+
+    <div class="report-header">
+
+        <div class="report-logo">
+            ⚖
+        </div>
+
+        <div>
+
+            <h1>
+                TEST REPORT
+            </h1>
+
+            <h2>
+                Non-Automatic Weighing Instrument
+            </h2>
+
+            <p>
+                OIML R-76 Test Report Generator
+            </p>
+
+        </div>
+
+        <div class="report-status">
+
+            <span class="status {{ report.status|lower }}">
+                {{ report.status }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-number">
+
+        <strong>Report No:</strong>
+
+        {{ report.report_no }}
+
+    </div>
+
+
+    <section>
+
+        <h3>1. Instrument Identification</h3>
+
+        <div class="report-grid">
+
+            <div>
+                <strong>Manufacturer</strong>
+                <span>{{ report.manufacturer }}</span>
+            </div>
+
+            <div>
+                <strong>Model</strong>
+                <span>{{ report.model }}</span>
+            </div>
+
+            <div>
+                <strong>Serial Number</strong>
+                <span>{{ report.serial_no }}</span>
+            </div>
+
+            <div>
+                <strong>Instrument Type</strong>
+                <span>{{ report.instrument_type }}</span>
+            </div>
+
+            <div>
+                <strong>Maximum Capacity</strong>
+                <span>{{ report.max_capacity }}</span>
+            </div>
+
+            <div>
+                <strong>Scale Interval</strong>
+                <span>{{ report.scale_interval }}</span>
+            </div>
+
+            <div>
+                <strong>Accuracy Class</strong>
+                <span>{{ report.accuracy_class }}</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h3>2. Laboratory Conditions</h3>
+
+        <div class="report-grid">
+
+            <div>
+                <strong>Laboratory</strong>
+                <span>{{ report.laboratory }}</span>
+            </div>
+
+            <div>
+                <strong>Location</strong>
+                <span>{{ report.location }}</span>
+            </div>
+
+            <div>
+                <strong>Temperature</strong>
+                <span>{{ report.temperature }} °C</span>
+            </div>
+
+            <div>
+                <strong>Humidity</strong>
+                <span>{{ report.humidity }} %</span>
+            </div>
+
+            <div>
+                <strong>Inspector</strong>
+                <span>{{ report.inspector }}</span>
+            </div>
+
+            <div>
+                <strong>Test Date</strong>
+                <span>{{ report.test_date }}</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h3>3. Test Observations</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Test</th>
+                    <th>Reference</th>
+                    <th>Observed</th>
+                    <th>Permissible Error</th>
+                    <th>Error</th>
+                    <th>Result</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for test in tests %}
+
+                <tr>
+
+                    <td>
+                        {{ test.test_name }}
+                    </td>
+
+                    <td>
+                        {{ test.reference_value }}
+                    </td>
+
+                    <td>
+                        {{ test.observed_value }}
+                    </td>
+
+                    <td>
+                        {{ test.permissible_error }}
+                    </td>
+
+                    <td>
+                        {{ "%.4f"|format(test.error) }}
+                    </td>
+
+                    <td>
+                        <strong>
+                            {{ test.result }}
+                        </strong>
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <section>
+
+        <h3>4. Compliance Conclusion</h3>
+
+        <div class="conclusion
+                    {{ report.status|lower }}">
+
+            {% if report.status == "PASS" %}
+
+                The instrument has passed all recorded
+                test observations based on the configured
+                permissible-error limits.
+
+            {% elif report.status == "FAIL" %}
+
+                One or more recorded test observations
+                exceeded the configured permissible-error
+                limits.
+
+            {% else %}
+
+                The report is currently in draft status.
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <div class="signature-area">
+
+        <div>
+
+            <div class="signature-line"></div>
+
+            <strong>Tested By</strong>
+
+        </div>
+
+
+        <div>
+
+            <div class="signature-line"></div>
+
+            <strong>Authorized Signatory</strong>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        Generated using NAWI OIML R-76 Test Report Generator
+
+    </footer>
+
+</div>
+
+{% endblock %}
